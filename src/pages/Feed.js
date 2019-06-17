@@ -15,6 +15,7 @@ import more from "../assets/more.png";
 import like from "../assets/like.png";
 import comment from "../assets/comment.png";
 import send from "../assets/send.png";
+import { API_URL } from "../config";
 
 export default class Feed extends Component {
   static navigationOptions = ({ navigation }) => ({
@@ -41,7 +42,7 @@ export default class Feed extends Component {
   }
 
   registerToSocket = () => {
-    const socket = io("http://10.0.3.2:3000");
+    const socket = io(API_URL);
 
     socket.on("post", newPost => {
       this.setState({ feed: [newPost, ...this.state.feed] });
@@ -79,7 +80,7 @@ export default class Feed extends Component {
 
               <Image
                 style={styles.feedImage}
-                source={{ uri: `http://10.0.3.2:3000/files/${item.image}` }}
+                source={{ uri: `${API_URL}/files/${item.image}` }}
               />
 
               <View style={styles.feedItemFooter}>
